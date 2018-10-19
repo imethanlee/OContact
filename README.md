@@ -1,4 +1,4 @@
-# OContact -- A simple but effective contact manager APP
+# OContact —— A simple but effective contact manager APP
 
 ### Developer:
 **Atlas Lee**
