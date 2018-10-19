@@ -1,10 +1,14 @@
 # OContact -- A simple but effective contact manager APP
 
-## Developer:
+### Developer:
 Atlas Lee
 
-### DDL: 
+### 1. DDL: 
 2018.12.07
 
-### Version:
+### 2. Version:
 alpha 0.1
+
+### 3. Current porcess:
+1. start to implement the UI 
+
