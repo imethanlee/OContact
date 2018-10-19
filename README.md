@@ -10,5 +10,5 @@
 alpha 0.1
 
 ### 3. Current porcess:
-1. start to implement the UI 
+1. start to implement the UI - 2018.10.19
 
