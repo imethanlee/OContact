@@ -1,7 +1,7 @@
 # OContact -- A simple but effective contact manager APP
 
 ### Developer:
-**1. Atlas Lee**
+**Atlas Lee**
 
 ### 1. DDL: 
 **2018.12.07**
