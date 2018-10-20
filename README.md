@@ -9,6 +9,6 @@
 ### 2. Version:
 alpha 0.1
 
-### 3. Current porcess:
+### 3. Current process:
 1. start to implement the UI - 2018.10.19
 
