@@ -16,9 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailActivity" />
-        <activity android:name=".EditActivity" />
-        <activity android:name=".PhotoActivity"></activity>
+            <activity android:name=".DetailActivity" />
+            <activity android:name=".EditActivity" />
+            <activity android:name=".PhotoActivity">
+
+        </activity>
     </application>
 
 </manifest>
