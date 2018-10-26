@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">OContact</string>
+    <string name="contact_editText_search">Search</string>
 </resources>
