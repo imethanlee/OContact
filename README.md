@@ -1,15 +1,7 @@
 # OContact —— A simple but effective contact manager APP
 
 ### Developer:
-**Atlas Lee**
-
-**GMC**
-
-**LLY**
-
-**HDS**
-
-**CSW**
+**Atlas Lee, GMC, LLY, HDS, CSW**
 
 ### 1. DDL: 
 **2018.12.07**
