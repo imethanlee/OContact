@@ -20,16 +20,19 @@ import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ContactActivity extends AppCompatActivity {
 
     private List<Person> personList=new ArrayList<>();
     private PersonAdapter adapter;
+    private boolean search_edit_text_on = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-
 
 
         // 联系人列表 RecyclerView
@@ -74,19 +77,22 @@ public class ContactActivity extends AppCompatActivity {
         final Button btn_back = findViewById(R.id.contact_btn_back);
         final EditText editText_search = findViewById(R.id.contact_edit_text_search);
 
+
         // 搜索框返回 Button
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 editText_search.setFocusable(false);
                 editText_search.setFocusableInTouchMode(false);
+                search_edit_text_on = false;
 
                 // 隐藏输入法
                 InputMethodManager imm = (InputMethodManager) editText_search.getContext().
                         getSystemService(Context.INPUT_METHOD_SERVICE);
 
                 if (imm != null) {
-                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                    imm.hideSoftInputFromWindow(Objects.requireNonNull(ContactActivity.this.getCurrentFocus()).getWindowToken(),
+                            InputMethodManager.HIDE_NOT_ALWAYS);
                 }
 
                 btn_back.setVisibility(View.GONE);
@@ -105,6 +111,7 @@ public class ContactActivity extends AppCompatActivity {
                 editText_search.setFocusableInTouchMode(true);
                 editText_search.requestFocus();
                 editText_search.requestFocusFromTouch();
+                search_edit_text_on = true;
 
                 // 显示输入法
                 InputMethodManager imm = (InputMethodManager) editText_search.getContext().
@@ -145,8 +152,31 @@ public class ContactActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        if (search_edit_text_on){
+            final EditText editText_search = findViewById(R.id.contact_edit_text_search);
+            final Button btn_back = findViewById(R.id.contact_btn_back);
 
+            editText_search.setFocusable(false);
+            editText_search.setFocusableInTouchMode(false);
+            search_edit_text_on = false;
 
+            // 隐藏输入法
+            InputMethodManager imm = (InputMethodManager) editText_search.getContext().
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(Objects.requireNonNull(ContactActivity.this.getCurrentFocus()).getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+
+            btn_back.setVisibility(View.GONE);
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
 
     // 避免多次 add_contact_toast 多次重复提示 (辅助功能)
     private Toast toast;
