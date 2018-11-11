@@ -5,21 +5,49 @@ import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ContactActivity extends AppCompatActivity {
 
+    private List<Person> personList=new ArrayList<>();
+    private PersonAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+
+
+
+        // 联系人列表 RecyclerView
+
+        initRecycleView();
+        RecyclerView recyclerView = findViewById(R.id.contact_recyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new PersonAdapter(personList);
+        recyclerView.setAdapter(adapter);
+        setHeaderView(recyclerView);
+        setFooterView(recyclerView);
+
+
+
+
+
+
 
         // ToolBar 中的 Menu
         Toolbar toolbar = findViewById(R.id.contact_toolbar);
@@ -110,8 +138,8 @@ public class ContactActivity extends AppCompatActivity {
         });
 
 
-        // 联系人列表 RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.contact_recyclerView);
+
+        //RecyclerView recyclerView = findViewById(R.id.contact_recyclerView);
 
 
     }
@@ -132,4 +160,32 @@ public class ContactActivity extends AppCompatActivity {
             toast.show();
         }
     }
+
+
+
+
+
+    private void initRecycleView() {
+        Person apple= new Person("Apple",R.drawable.apple_pic);
+        Person banana= new Person("Banana", R.drawable.banana_pic);
+        Person orange=new Person("Orange", R.drawable.orange_pic);
+        for(int i=0;i<21;i++)
+        {
+            personList.add(apple);
+            personList.add(banana);
+            personList.add(orange);
+        }
+        //这一步本应该从数据库中导入数据，然后登记到类上
+    }
+
+    private void setHeaderView(RecyclerView view){
+        View header = LayoutInflater.from(this).inflate(R.layout.header, view, false);
+        adapter.setHeaderView(header);
+    }
+
+    private void setFooterView(RecyclerView view){
+        View footer = LayoutInflater.from(this).inflate(R.layout.footer, view, false);
+        adapter.setFooterView(footer);
+    }
+
 }
