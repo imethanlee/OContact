@@ -13,5 +13,8 @@
         android:id="@+id/contact_menu_contact_us"
         android:title="Contact us"/>
 
+    <item
+        android:id="@+id/to_detail_test"
+        android:title="Detail_Test"/>
 
 </menu>
