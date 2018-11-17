@@ -1,5 +1,6 @@
 package com.example.gg.ocontact;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
@@ -82,6 +83,7 @@ public class ContactActivity extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editText_search.setText("");
                 editText_search.setFocusable(false);
                 editText_search.setFocusableInTouchMode(false);
                 search_edit_text_on = false;
@@ -102,7 +104,6 @@ public class ContactActivity extends AppCompatActivity {
 
         // 搜索框 EditText
         editText_search.setFocusableInTouchMode(false);
-
         editText_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,12 +153,14 @@ public class ContactActivity extends AppCompatActivity {
     }
 
 
+    // 让系统返回键实现和搜索栏返回键一样的功能
     @Override
     public void onBackPressed() {
         if (search_edit_text_on){
             final EditText editText_search = findViewById(R.id.contact_edit_text_search);
             final Button btn_back = findViewById(R.id.contact_btn_back);
 
+            editText_search.setText("");
             editText_search.setFocusable(false);
             editText_search.setFocusableInTouchMode(false);
             search_edit_text_on = false;
