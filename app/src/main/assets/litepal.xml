@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <!--创建数据库名称，默认在末尾添加.db拓展名 -->
+    <dbname value="contact_database">
+
+    </dbname>
+
+    <!-- 数据库版本号，用于更新数据库-->
+    <version value="1">
+
+    </version>
+
+    <list>
+        <mapping class = "com.example.gg.ocontact.ContactDatabase">
+
+        </mapping>
+    </list>
+
+</litepal>
