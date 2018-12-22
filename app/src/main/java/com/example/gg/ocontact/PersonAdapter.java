@@ -1,4 +1,8 @@
 package com.example.gg.ocontact;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +17,24 @@ import java.util.List;
 
 public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> {
     private List<Person>mPersonList;
+    private boolean visibleBoard[];
 
-    boolean visible=false;
-    void switchvisible(){
-        if(visible==false)
-            visible=true;
-        else
-            visible=false;
+
+    //boolean visible=false;
+    void switchvisible(View v,int pos){
+        if(visibleBoard[pos]==false) {
+            visibleBoard[pos] = true;
+            //Toast.makeText(v.getContext(),"可见",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            visibleBoard[pos]= false;
+            //Toast.makeText(v.getContext(),"不可见",Toast.LENGTH_SHORT).show();
+        }
     }
+
+
+
+
     class ViewHolder extends RecyclerView.ViewHolder{
         //此处列出需要响应点击事件的布局
         ImageView personImage;
@@ -28,7 +42,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         LinearLayout lowerLayout;
         LinearLayout textLayout;
         Button phoneCallButton1;
-        Button phoneCallButton2;
+        //Button phoneCallButton2;
         Button informationButton;
         Button messageButton;
         TextView footerText;
@@ -52,13 +66,21 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
             lowerLayout=(LinearLayout)view.findViewById(R.id.lower_layout);
             textLayout=(LinearLayout)view.findViewById(R.id.text_layout);
             phoneCallButton1=(Button)view.findViewById(R.id.phone_call1);
-            phoneCallButton2=(Button)view.findViewById(R.id.phone_call2);
+            //phoneCallButton2=(Button)view.findViewById(R.id.phone_call3);
             informationButton=(Button)view.findViewById(R.id.details);
             messageButton=(Button)view.findViewById(R.id.message);
 
+
         }
     }
-    public PersonAdapter(List<Person>personList){mPersonList=personList;}
+    public PersonAdapter(List<Person>personList){
+        mPersonList=personList;
+        visibleBoard=new boolean[mPersonList.size()];
+        for(int i=0;i<mPersonList.size();i++)
+        {
+            visibleBoard[i]=false;
+        }
+    }
     @Override
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
@@ -78,7 +100,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         holder.textLayout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                int position=holder.getAdapterPosition();
+                int position=holder.getAdapterPosition()-1;
                 Person person = mPersonList.get(position);
                 //Toast.makeText(v.getContext(),"你点击了文本布局："+person.getName(),Toast.LENGTH_SHORT).show();
 
@@ -90,9 +112,9 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                         holder.lowerLayout.setVisibility(View.GONE);
                 }
                 */
-
-                holder.lowerLayout.setVisibility(visible==true? View.GONE:View.VISIBLE);//展开就关闭 关闭就展开。
-                switchvisible();
+                Toast.makeText(v.getContext(),"你点击了图片:"+String.valueOf(position),Toast.LENGTH_SHORT).show();
+                holder.lowerLayout.setVisibility(visibleBoard[position]==true? View.GONE:View.VISIBLE);//展开就关闭 关闭就展开。
+                switchvisible(v,position);
 
 
             }
@@ -100,21 +122,26 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         holder.personImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position=holder.getAdapterPosition();
+                int position=holder.getAdapterPosition()-1;
                 Person person=mPersonList.get(position);
                 Toast.makeText(v.getContext(),"你点击了图片:"+person.getName(),Toast.LENGTH_SHORT).show();
             }
         });
 
 
+
         holder.phoneCallButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position=holder.getAdapterPosition();
+                int position=holder.getAdapterPosition()-1;//因为头部占据一层
                 Person person=mPersonList.get(position);
+                Intent intent=new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+person.getPhoneNumber()));
+                view.getContext().startActivity(intent);
                 //点击电话1按钮后的逻辑。
             }
         });
+        /*
 
         holder.phoneCallButton2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,21 +152,34 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
             }
         });
 
+*/
         holder.messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position=holder.getAdapterPosition();
+                int position=holder.getAdapterPosition()-1;
                 Person person=mPersonList.get(position);
                 //点击短信按钮后的逻辑。
+                Intent intent=new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("smsto:"+person.getPhoneNumber()));
+                view.getContext().startActivity(intent);
             }
         });
+
 
         holder.informationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position=holder.getAdapterPosition();
+                int position=holder.getAdapterPosition()-1;
                 Person person=mPersonList.get(position);
+                Intent intent=new Intent(view.getContext(),DetailActivity.class);
+                //intent.putExtra("person_name",person.getSerial());
+                ((Activity)view.getContext()).startActivityForResult(intent, 1);
+
+
+
+
                 //点击详情按钮后的逻辑。
+
 
             }
         });
@@ -242,6 +282,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         }else {
             return mPersonList.size() + 2;
         }
+
     }
 
 }

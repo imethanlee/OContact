@@ -21,6 +21,8 @@ import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
 import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
+import org.litepal.crud.LitePalSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +78,9 @@ public class ContactActivity extends AppCompatActivity {
                         break;
 
                     case R.id.to_detail_test://转到DetailActivity的测试按钮
-                        Intent intent=new Intent(ContactActivity.this,DetailActivity.class);
-                        startActivity(intent);
+                        //Intent intent=new Intent(ContactActivity.this,DetailActivity.class);
+                        //startActivity(intent);
+                        showToast("暂时不允许如此调用");
                         break;
                 }
                 return false;
@@ -205,18 +208,16 @@ public class ContactActivity extends AppCompatActivity {
     }
 
 
-
-
-
     private void initRecycleView() {
-        Person apple= new Person("Apple",R.drawable.apple_pic);
-        Person banana= new Person("Banana", R.drawable.banana_pic);
-        Person orange=new Person("Orange", R.drawable.orange_pic);
-        for(int i=0;i<21;i++)
+        personList.clear();
+
+        List<ContactDatabase> allContacts = LitePal.findAll(ContactDatabase.class);
+
+        for(ContactDatabase person0: allContacts)
         {
-            personList.add(apple);
-            personList.add(banana);
-            personList.add(orange);
+            // 图片未成功
+            Person person= new Person(person0.getName(),R.drawable.apple_pic);
+            personList.add(person);
         }
         //这一步本应该从数据库中导入数据，然后登记到类上
     }
@@ -230,5 +231,13 @@ public class ContactActivity extends AppCompatActivity {
         View footer = LayoutInflater.from(this).inflate(R.layout.footer, view, false);
         adapter.setFooterView(footer);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data)
+    {
+        Toast.makeText(this,"返回了主界面", Toast.LENGTH_SHORT).show();
+       initRecycleView();
+    }
+
 
 }

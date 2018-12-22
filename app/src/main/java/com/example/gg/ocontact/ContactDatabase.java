@@ -19,6 +19,10 @@ public class ContactDatabase extends LitePalSupport {
 
     private String email;
 
+    private String comment;
+
+    private String job;
+
     // getter and setter
     public void setId(int id) {
         this.id = id;
@@ -74,5 +78,21 @@ public class ContactDatabase extends LitePalSupport {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public String getJob() {
+        return job;
     }
 }
