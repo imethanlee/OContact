@@ -40,6 +40,7 @@ public class DetailActivity extends AppCompatActivity {
         }
         //collapsingToolbar.setTitle("姓名");
         //Glide.with(this).load( ).into(photo); //头像载入工具
+
     }
 
     @Override

@@ -144,6 +144,8 @@ public class ContactActivity extends AppCompatActivity {
         fab_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(ContactActivity.this, EditActivity.class);
+                startActivity(intent);
                 showToast("'fab_add' clicked");
             }
         });
@@ -240,4 +242,17 @@ public class ContactActivity extends AppCompatActivity {
     }
 
 
+    // 返回界面时，重新加载recycler view
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initRecycleView();
+        RecyclerView recyclerView = findViewById(R.id.contact_recyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new PersonAdapter(personList);
+        recyclerView.setAdapter(adapter);
+        setHeaderView(recyclerView);
+        setFooterView(recyclerView);
+    }
 }

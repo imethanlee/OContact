@@ -19,22 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".DetailActivity"
-            android:label=" ">
-        </activity>
-
-
-        <activity android:name=".EditActivity" >
-
-        </activity>
-
-
-        <activity android:name=".PhotoActivity">
-
-        </activity>
+            android:label=" " />
+        <activity android:name=".EditActivity" />
+        <activity android:name=".PhotoActivity" />
     </application>
 
 </manifest>
