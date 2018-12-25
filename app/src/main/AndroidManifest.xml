@@ -24,6 +24,7 @@
             android:label=" " />
         <activity android:name=".EditActivity" />
         <activity android:name=".PhotoActivity" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>

@@ -32,7 +32,6 @@ public class ContactActivity extends AppCompatActivity {
 
     private List<Person> personList=new ArrayList<>();
     private PersonAdapter adapter;
-    private boolean search_edit_text_on = false;
 
 
     @Override
@@ -57,9 +56,6 @@ public class ContactActivity extends AppCompatActivity {
 
 
 
-
-
-
         // ToolBar 中的 Menu
         Toolbar toolbar = findViewById(R.id.contact_toolbar);
         toolbar.inflateMenu(R.menu.contact_menu);
@@ -67,76 +63,16 @@ public class ContactActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
-                    case R.id.contact_menu_delete:
-                        showToast("Delete clicked");
-                        break;
-                    case R.id.contact_menu_share_contacts:
-                        showToast("Share clicked");
-                        break;
                     case R.id.contact_menu_contact_us:
                         showToast("Contact us clicked");
                         break;
-
-                    case R.id.to_detail_test://转到DetailActivity的测试按钮
-                        //Intent intent=new Intent(ContactActivity.this,DetailActivity.class);
-                        //startActivity(intent);
-                        showToast("暂时不允许如此调用");
-                        break;
+                    case R.id.item_search:
+                        Intent toSearchActivity = new Intent(ContactActivity.this, SearchActivity.class);
+                        startActivity(toSearchActivity);
                 }
                 return false;
             }
         });
-
-
-        final Button btn_back = findViewById(R.id.contact_btn_back);
-        final EditText editText_search = findViewById(R.id.contact_edit_text_search);
-
-
-        // 搜索框返回 Button
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editText_search.setText("");
-                editText_search.setFocusable(false);
-                editText_search.setFocusableInTouchMode(false);
-                search_edit_text_on = false;
-
-                // 隐藏输入法
-                InputMethodManager imm = (InputMethodManager) editText_search.getContext().
-                        getSystemService(Context.INPUT_METHOD_SERVICE);
-
-                if (imm != null) {
-                    imm.hideSoftInputFromWindow(Objects.requireNonNull(ContactActivity.this.getCurrentFocus()).getWindowToken(),
-                            InputMethodManager.HIDE_NOT_ALWAYS);
-                }
-
-                btn_back.setVisibility(View.GONE);
-            }
-        });
-
-
-        // 搜索框 EditText
-        editText_search.setFocusableInTouchMode(false);
-        editText_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btn_back.setVisibility(View.VISIBLE);
-                editText_search.setFocusable(true);
-                editText_search.setFocusableInTouchMode(true);
-                editText_search.requestFocus();
-                editText_search.requestFocusFromTouch();
-                search_edit_text_on = true;
-
-                // 显示输入法
-                InputMethodManager imm = (InputMethodManager) editText_search.getContext().
-                        getSystemService(Context.INPUT_METHOD_SERVICE);
-
-                if (imm != null) {
-                    imm.showSoftInput(editText_search, 0);
-                }
-            }
-        });
-
 
 
         // 联系人添加 FAB -- !!! 跳转 EditActivity !!!
@@ -169,6 +105,7 @@ public class ContactActivity extends AppCompatActivity {
 
 
     // 让系统返回键实现和搜索栏返回键一样的功能
+    /*
     @Override
     public void onBackPressed() {
         if (search_edit_text_on){
@@ -195,6 +132,7 @@ public class ContactActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+    */
 
     // 避免多次 add_contact_toast 多次重复提示 (辅助功能)
     private Toast toast;

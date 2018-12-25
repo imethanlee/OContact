@@ -31,8 +31,13 @@ public class DetailActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar=(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         ImageView photo=(ImageView) findViewById(R.id.detail_image_view);//联系人头像
         //TextView
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        android.support.v7.widget.Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        // 返回主界面
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         ActionBar actionBar=getSupportActionBar();
         if(actionBar!=null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -52,7 +57,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.home:
+            case android.R.id.home:
                 Toast.makeText(this,"返回主界面", Toast.LENGTH_SHORT).show();
                 finish();
                 return true;
