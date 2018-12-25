@@ -45,14 +45,14 @@ public class ContactActivity extends AppCompatActivity {
         // 联系人列表 RecyclerView
 
         initRecycleView();
-        RecyclerView recyclerView = findViewById(R.id.contact_recyclerView);
+
+        final RecyclerView recyclerView = findViewById(R.id.contact_recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new PersonAdapter(personList);
+        adapter = new PersonAdapter(personList, 1);
         recyclerView.setAdapter(adapter);
         setHeaderView(recyclerView);
         setFooterView(recyclerView);
-
 
 
 
@@ -92,6 +92,7 @@ public class ContactActivity extends AppCompatActivity {
         fab_to_the_top.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                recyclerView.scrollToPosition(0);
                 showToast("'fab_to_the_top' clicked");
             }
         });
@@ -151,10 +152,9 @@ public class ContactActivity extends AppCompatActivity {
     private void initRecycleView() {
         personList.clear();
 
-        List<ContactDatabase> allContacts = LitePal.findAll(ContactDatabase.class);
+        List<ContactDatabase> allContacts = LitePal.order("name asc").find(ContactDatabase.class);
 
-        for(ContactDatabase person0: allContacts)
-        {
+        for(ContactDatabase person0: allContacts) {
             // 图片未成功
             Person person= new Person(person0.getName(),R.drawable.apple_pic);
             personList.add(person);
@@ -188,7 +188,7 @@ public class ContactActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.contact_recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new PersonAdapter(personList);
+        adapter = new PersonAdapter(personList, 1);
         recyclerView.setAdapter(adapter);
         setHeaderView(recyclerView);
         setFooterView(recyclerView);

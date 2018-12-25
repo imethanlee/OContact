@@ -18,7 +18,7 @@ import java.util.List;
 public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> {
     private List<Person>mPersonList;
     private boolean visibleBoard[];
-
+    private int mode;
 
     //boolean visible=false;
     void switchvisible(View v,int pos){
@@ -73,7 +73,9 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 
         }
     }
-    public PersonAdapter(List<Person>personList){
+    public PersonAdapter(List<Person>personList, int mode){
+        this.mode=mode;
+
         mPersonList=personList;
         visibleBoard=new boolean[mPersonList.size()];
         for(int i=0;i<mPersonList.size();i++)
@@ -125,6 +127,13 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                 int position=holder.getAdapterPosition()-1;
                 Person person=mPersonList.get(position);
                 Toast.makeText(v.getContext(),"你点击了图片:"+person.getName(),Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+
             }
         });
 
@@ -204,11 +213,6 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
     */
 
 
-
-
-
-
-
     //设置底部和头部布局的代码部分
     public static final int TYPE_HEADER = 0;  //说明是带有Header的
     public static final int TYPE_FOOTER = 1;  //说明是带有Footer的
@@ -257,13 +261,36 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 
             return;
         }else if(getItemViewType(position) == TYPE_FOOTER){
-            String str="这里一共有："+String.valueOf(mPersonList.size())+"名联系人";
+            String str;
+            if(mode==1) {
+                str = "这里一共有：" + String.valueOf(mPersonList.size()) + "名联系人";
+            }
+            else{
+                if (mPersonList.size() != 0){
+                    str = String.valueOf(mPersonList.size()) + " FOUND";
+                }
+                else {
+                    str = "";
+                }
+            }
             //Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
             holder.footerText.setText(str);
             return;
         }else{
 
-            String str="我来组成头部";
+            String str;
+            if (mode == 1){
+                str="我来组成头部";
+            }
+            else{
+                if (mPersonList.size() != 0){
+                    str = "";
+                    holder.headerText.setVisibility(View.GONE);
+                }
+                else {
+                    str = "\n\n\n\n\n\nOops! Seems to be no match";
+                }
+            }
             //Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
             holder.headerText.setText(str);
 

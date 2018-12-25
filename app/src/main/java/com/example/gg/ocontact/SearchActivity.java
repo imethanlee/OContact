@@ -3,15 +3,25 @@ package com.example.gg.ocontact;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
+import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SearchActivity extends AppCompatActivity {
@@ -19,6 +29,12 @@ public class SearchActivity extends AppCompatActivity {
     private boolean search_edit_text_on = false;
     private android.support.v7.widget.Toolbar toolbar;
     private EditText editText_search;
+    private List<ContactDatabase> result_list;
+
+    private RecyclerView recyclerView;
+    private PersonAdapter adapter;
+    private List<Person> personList = new ArrayList<>();
+    private LinearLayoutManager layoutManager;
 
 
     @Override
@@ -30,7 +46,15 @@ public class SearchActivity extends AppCompatActivity {
         editText_search = findViewById(R.id.search_edit_text_search);
         toolbar = findViewById(R.id.search_toolbar);
 
+        // 滑动布局
+        recyclerView = findViewById(R.id.search_recyclerView);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+
+        // 返回按钮
         setSupportActionBar(toolbar);
+
 
         // 搜索框 EditText
         editText_search.setFocusableInTouchMode(false);
@@ -64,11 +88,39 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // 重置
+                personList.clear();
 
+                String keyword = editText_search.getText().toString();
+
+                // 模糊搜索 数据库
+                if (!editText_search.getText().toString().equals("")){
+                    result_list = LitePal.where("name like ?", "%" + keyword + "%").
+                            find(ContactDatabase.class);
+                }
+                else {
+                    result_list.clear();
+                }
+
+                String size = Integer.toString(result_list.size());
+
+                // 显示结果个数
+                Toast.makeText(SearchActivity.this, size, Toast.LENGTH_SHORT).show();
+
+                for(ContactDatabase one: result_list) {
+                    Person person= new Person(one.getName(),R.drawable.apple_pic);
+                    personList.add(person);
+                }
+                adapter = new PersonAdapter(personList, 2);
+
+                recyclerView.setAdapter(adapter);
+                setFooterView(recyclerView);
+                setHeaderView(recyclerView);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+
 
             }
         });
@@ -97,5 +149,15 @@ public class SearchActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    private void setHeaderView(RecyclerView view){
+        View header = LayoutInflater.from(this).inflate(R.layout.header, view, false);
+        adapter.setHeaderView(header);
+    }
+
+    private void setFooterView(RecyclerView view){
+        View footer = LayoutInflater.from(this).inflate(R.layout.footer, view, false);
+        adapter.setFooterView(footer);
     }
 }
