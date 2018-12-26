@@ -87,7 +87,7 @@ public class ContactActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ContactActivity.this, EditActivity.class);
-                intent.putExtra("id", "1");
+                intent.putExtra("id", "-1");
                 startActivity(intent);
                 showToast("'fab_add' clicked");
             }
