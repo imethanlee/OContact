@@ -1,15 +1,21 @@
 package com.example.gg.ocontact;
 
+import android.content.ClipData;
 import android.content.Context;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +42,8 @@ public class SearchActivity extends AppCompatActivity {
     private List<Person> personList = new ArrayList<>();
     private LinearLayoutManager layoutManager;
 
+    private ActionBar actionBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +62,7 @@ public class SearchActivity extends AppCompatActivity {
 
         // 返回按钮
         setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
 
 
         // 搜索框 EditText
@@ -61,7 +70,7 @@ public class SearchActivity extends AppCompatActivity {
         editText_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                actionBar.setDisplayHomeAsUpEnabled(true);
                 editText_search.setFocusable(true);
                 editText_search.setFocusableInTouchMode(true);
                 editText_search.requestFocus();
@@ -131,10 +140,15 @@ public class SearchActivity extends AppCompatActivity {
 
         if (item.getItemId() == android.R.id.home) {
             //finish();
+            if (!editText_search.getText().toString().equals("")){
+                editText_search.setText("");
+                editText_search.setFocusable(false);
+                editText_search.setFocusableInTouchMode(false);
+            }
+            else {
+                editText_search.setFocusable(false);
+            }
 
-            editText_search.setText("");
-            editText_search.setFocusable(false);
-            editText_search.setFocusableInTouchMode(false);
             search_edit_text_on = false;
 
             InputMethodManager imm = (InputMethodManager) editText_search.getContext().
@@ -143,7 +157,7 @@ public class SearchActivity extends AppCompatActivity {
             if (imm != null){
                 imm.hideSoftInputFromWindow(editText_search.getApplicationWindowToken(), 0);
             }
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(false);
 
             return true;
         }
@@ -159,5 +173,24 @@ public class SearchActivity extends AppCompatActivity {
     private void setFooterView(RecyclerView view){
         View footer = LayoutInflater.from(this).inflate(R.layout.footer, view, false);
         adapter.setFooterView(footer);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (search_edit_text_on){
+            if (!editText_search.getText().toString().equals("")){
+                editText_search.setText("");
+                editText_search.setFocusable(false);
+                editText_search.setFocusableInTouchMode(false);
+            }
+            else {
+                editText_search.setFocusable(false);
+            }
+            search_edit_text_on = false;
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 }

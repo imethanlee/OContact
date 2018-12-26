@@ -9,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -38,6 +40,9 @@ public class ContactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+        Slide slide = new Slide();
+        slide.setDuration(1000);
+        getWindow().setExitTransition(slide);
 
         // 创建数据库(如无)
         LitePal.getDatabase();
@@ -69,6 +74,7 @@ public class ContactActivity extends AppCompatActivity {
                     case R.id.item_search:
                         Intent toSearchActivity = new Intent(ContactActivity.this, SearchActivity.class);
                         startActivity(toSearchActivity);
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 }
                 return false;
             }
@@ -82,6 +88,7 @@ public class ContactActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ContactActivity.this, EditActivity.class);
                 startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 showToast("'fab_add' clicked");
             }
         });
@@ -89,6 +96,7 @@ public class ContactActivity extends AppCompatActivity {
 
         // 回到最上方 FAB
         FloatingActionButton fab_to_the_top = findViewById(R.id.contact_fab_to_the_top);
+        fab_to_the_top.getBackground().setAlpha(180);
         fab_to_the_top.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,6 +143,8 @@ public class ContactActivity extends AppCompatActivity {
     }
     */
 
+
+
     // 避免多次 add_contact_toast 多次重复提示 (辅助功能)
     private Toast toast;
     private void showToast(String msg){
@@ -156,7 +166,7 @@ public class ContactActivity extends AppCompatActivity {
 
         for(ContactDatabase person0: allContacts) {
             // 图片未成功
-            Person person= new Person(person0.getName(),R.drawable.apple_pic);
+            Person person = new Person(person0.getName(), R.drawable.apple_pic);
             personList.add(person);
         }
         //这一步本应该从数据库中导入数据，然后登记到类上

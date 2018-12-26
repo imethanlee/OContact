@@ -19,12 +19,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".DetailActivity"
             android:label=" " />
-        <activity android:name=".EditActivity" />
-        <activity android:name=".PhotoActivity" />
-        <activity android:name=".SearchActivity"></activity>
+
+        <activity android:name=".EditActivity"
+            android:launchMode="singleTask"
+            />
+
+        <activity android:name=".PhotoActivity"
+            android:launchMode="singleTask"
+            />
+
+        <activity android:name=".SearchActivity"
+            android:launchMode="singleTask"
+            />
+
     </application>
 
 </manifest>
