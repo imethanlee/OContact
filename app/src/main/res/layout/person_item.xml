@@ -57,7 +57,10 @@
             android:layout_height="89dp"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="电话" />
+            android:drawableLeft="@drawable/phone_new"
+            android:text="Call"
+            android:textAllCaps="false"
+            />
 
         <Button
             android:id="@+id/message"
@@ -65,7 +68,9 @@
             android:layout_height="89dp"
             android:layout_marginLeft="9dp"
             android:layout_weight="1"
-            android:text="短信" />
+            android:drawableLeft="@drawable/sms_new"
+            android:textAllCaps="false"
+            android:text="SMS" />
 
         <Button
             android:id="@+id/details"
@@ -74,7 +79,9 @@
             android:layout_marginLeft="9dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="详情" />
+            android:drawableLeft="@drawable/info_new"
+            android:textAllCaps="false"
+            android:text="Details" />
 
 
 
