@@ -1,6 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/detail_work"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:text="工作"
+        android:textColor="#A1A1A1"
+        android:textSize="15sp"
+        android:visibility="visible"
+        android:textIsSelectable="false"
+        android:focusable="false"
+        android:longClickable="false"/>
+
+    <TextView
+        android:id="@+id/detail_work_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:gravity="left"
+        android:text="NULL"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:visibility="visible"
+        android:textIsSelectable="true"
+        android:focusable="true"
+        android:longClickable="true"/>
+
+    <TextView
+        android:id="@+id/detail_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:text="手机"
+        android:textColor="#A1A1A1"
+        android:textSize="15sp"
+        android:visibility="visible"
+        android:textIsSelectable="false"
+        android:focusable="false"
+        android:longClickable="false"/>
+
+    <TextView
+        android:id="@+id/detail_number_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:gravity="left"
+        android:text="NULL"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:visibility="visible"
+        android:textIsSelectable="true"
+        android:focusable="true"
+        android:longClickable="true"/>
+
+    <TextView
+        android:id="@+id/detail_mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:text="电子邮件"
+        android:textColor="#A1A1A1"
+        android:textSize="15sp"
+        android:visibility="visible"
+        android:textIsSelectable="false"
+        android:focusable="false"
+        android:longClickable="false"/>
+
+    <TextView
+        android:id="@+id/detail_mail_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:gravity="left"
+        android:text="NULL"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:visibility="visible"
+        android:textIsSelectable="true"
+        android:focusable="true"
+        android:longClickable="true"/>
+
+    <TextView
+        android:id="@+id/detail_remark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:text="备注"
+        android:textColor="#A1A1A1"
+        android:textSize="15sp"
+        android:visibility="visible"
+        android:textIsSelectable="false"
+        android:focusable="false"
+        android:longClickable="false"/>
+
+    <TextView
+        android:id="@+id/detail_remark_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:gravity="left"
+        android:text="NULL"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:visibility="visible"
+        android:textIsSelectable="true"
+        android:focusable="true"
+        android:longClickable="true"/>
+
+    <TextView
+        android:id="@+id/detail_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:text="住址"
+        android:textColor="#A1A1A1"
+        android:textSize="15sp"
+        android:visibility="visible"
+        android:textIsSelectable="false"
+        android:focusable="false"
+        android:longClickable="false"/>
+
+    <TextView
+        android:id="@+id/detail_address_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:gravity="left"
+        android:text="NULL"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:visibility="visible"
+        android:textIsSelectable="true"
+        android:focusable="true"
+        android:longClickable="true"/>
+
+    <TextView
+        android:id="@+id/detail_birthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:text="生日"
+        android:textColor="#A1A1A1"
+        android:textSize="15sp"
+        android:visibility="visible"
+        android:textIsSelectable="false"
+        android:focusable="false"
+        android:longClickable="false"/>
+
+    <TextView
+        android:id="@+id/detail_birthday_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:gravity="left"
+        android:text="NULL"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:visibility="visible"
+        android:textIsSelectable="true"
+        android:focusable="true"
+        android:longClickable="true"/>
+
+</LinearLayout>

@@ -1,8 +1,8 @@
 package com.example.gg.ocontact;
 
-import org.litepal.crud.DataSupport;
+import org.litepal.crud.LitePalSupport;
 
-public class Person extends DataSupport {
+public class Person extends LitePalSupport {
     private String name;
     private int imageId;
     private String phoneNumber;
