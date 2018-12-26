@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> {
     private List<Person>mPersonList;
@@ -117,6 +121,30 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                 }
                 */
                     Toast.makeText(v.getContext(),"你点击了图片:"+String.valueOf(position),Toast.LENGTH_SHORT).show();
+
+                    /* 动画测试
+                    TranslateAnimation mShowAction;
+                    TranslateAnimation mHiddenAction;
+                    if (visibleBoard[position] == false){
+                        mShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+                        mShowAction.setDuration(500);
+                        holder.lowerLayout.startAnimation(mShowAction);
+                    }
+                    else {
+                        mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                                0.0f, Animation.RELATIVE_TO_SELF, -1.0f);
+                        mHiddenAction.setDuration(500);
+                        holder.lowerLayout.startAnimation(mHiddenAction);
+                    }
+
+                    Timer timer = new Timer();
+                    timer.schedule(new TimerTask() {@Override public void run() { } },500); // 延时1秒
+
+                    */ //动画测试
+
                     holder.lowerLayout.setVisibility(visibleBoard[position]==true? View.GONE:View.VISIBLE);//展开就关闭 关闭就展开。
                     switchvisible(v,position);
 

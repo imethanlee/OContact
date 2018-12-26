@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 public class ItemBean {
     private String text;
     private String hint;
-    //private Bitmap bitmap;
+    private Bitmap bitmap;
     private boolean exitMessage = false;
 
     public String getText() {
@@ -14,7 +14,7 @@ public class ItemBean {
     public String getHint() {
         return hint;
     }
-    //public Bitmap getBitmap() {return bitmap;}
+    public Bitmap getBitmap() {return bitmap;}
     public Boolean getExitMessage() { return exitMessage; }
 
     public void setText(String text)
@@ -25,11 +25,11 @@ public class ItemBean {
     {
         this.hint = text;
     }
-    public void setBitmap(Bitmap bitmap)
-    {
-        //this.bitmap=bitmap;
-    }
 
+    public void setBitmap(Bitmap bitmap) {
+        if(this.bitmap==null||bitmap!=null)
+            this.bitmap=bitmap;
+    }
     public void setExitMessage(Boolean exitMessage)
     {
         this.exitMessage = exitMessage;

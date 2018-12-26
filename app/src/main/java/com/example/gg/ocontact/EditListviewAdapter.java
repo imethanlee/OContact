@@ -48,7 +48,6 @@ public class EditListviewAdapter extends BaseAdapter implements View.OnClickList
             vh = (ViewHolder) convertView.getTag();
         }
 
-        ///////补充imageView 焦点
         vh.editText.setOnTouchListener(this); // 正确写法
         vh.editText.setOnFocusChangeListener(this);
         vh.editText.setTag(position);
@@ -64,7 +63,9 @@ public class EditListviewAdapter extends BaseAdapter implements View.OnClickList
         {
             vh.imageView.setVisibility(View.VISIBLE);
             vh.editText.setVisibility(View.GONE);
-            //vh.imageView.setImageBitmap(mList.get(position).getBitmap());
+            vh.editText.setFocusable(false);
+            if(mList.get(position).getBitmap()!=null)
+                vh.imageView.setImageBitmap(mList.get(position).getBitmap());
         }
 
         if(mList.get(position).getExitMessage())
@@ -74,8 +75,8 @@ public class EditListviewAdapter extends BaseAdapter implements View.OnClickList
 
         vh.editText.setSelection(vh.editText.length());
         convertView.setTag(R.id.item_root, position); // 应该在这里让convertView绑定position
-        convertView.setOnClickListener(this);
-        convertView.setOnLongClickListener(this);
+        //convertView.setOnClickListener(this);
+        //convertView.setOnLongClickListener(this);
         return convertView;
     }
 

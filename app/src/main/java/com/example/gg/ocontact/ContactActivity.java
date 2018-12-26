@@ -87,8 +87,8 @@ public class ContactActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ContactActivity.this, EditActivity.class);
+                intent.putExtra("id", "1");
                 startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 showToast("'fab_add' clicked");
             }
         });
@@ -111,38 +111,6 @@ public class ContactActivity extends AppCompatActivity {
 
 
     }
-
-
-    // 让系统返回键实现和搜索栏返回键一样的功能
-    /*
-    @Override
-    public void onBackPressed() {
-        if (search_edit_text_on){
-            final EditText editText_search = findViewById(R.id.contact_edit_text_search);
-            final Button btn_back = findViewById(R.id.contact_btn_back);
-
-            editText_search.setText("");
-            editText_search.setFocusable(false);
-            editText_search.setFocusableInTouchMode(false);
-            search_edit_text_on = false;
-
-            // 隐藏输入法
-            InputMethodManager imm = (InputMethodManager) editText_search.getContext().
-                    getSystemService(Context.INPUT_METHOD_SERVICE);
-
-            if (imm != null) {
-                imm.hideSoftInputFromWindow(Objects.requireNonNull(ContactActivity.this.getCurrentFocus()).getWindowToken(),
-                        InputMethodManager.HIDE_NOT_ALWAYS);
-            }
-
-            btn_back.setVisibility(View.GONE);
-        }
-        else{
-            super.onBackPressed();
-        }
-    }
-    */
-
 
 
     // 避免多次 add_contact_toast 多次重复提示 (辅助功能)

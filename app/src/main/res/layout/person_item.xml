@@ -3,13 +3,15 @@
     android:id="@+id/total_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <LinearLayout
         android:id="@+id/upper_layout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        >
 
         <LinearLayout
             android:layout_width="100dp"
@@ -26,7 +28,8 @@
             android:id="@+id/text_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            >
 
             <LinearLayout
                 android:id="@+id/textview_layout"
@@ -49,7 +52,8 @@
     <LinearLayout
         android:id="@+id/lower_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="100dp"
+        android:animateLayoutChanges="true">
 
         <Button
             android:id="@+id/phone_call1"
