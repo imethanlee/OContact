@@ -49,7 +49,10 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        who = null;
+        Intent intent=getIntent();
+        who=intent.getStringExtra("person_id");
+        //who = null;
+        Log.d("EditActivity_id", who);
 
         initialize(who);
 

@@ -1,8 +1,8 @@
 package com.example.gg.ocontact;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -25,30 +25,26 @@ import java.util.List;
 
 /*
  * To-do:12.26
- * 1.跳转到EditActivity
- * 2.完成分享功能
  * 3.完成头像载入
- * 4.完善删除功能
  * */
 public class DetailActivity extends AppCompatActivity {
 
     int personId;
+    String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         //setTitle("");
         Intent intent=getIntent();
-        String name=intent.getStringExtra("person_name");
+        name=intent.getStringExtra("person_name");
         Log.d("DetailActivity", name);
 
         initInfo(name);//初始化详细信息
-        CollapsingToolbarLayout collapsingToolbar=(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        ImageView photo=(ImageView) findViewById(R.id.detail_image_view);//联系人头像
 
         android.support.v7.widget.Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        // 返回主界面
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -58,8 +54,6 @@ public class DetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
         }
-        //collapsingToolbar.setTitle("姓名");
-        //Glide.with(this).load( ).into(photo); //头像载入工具
 
     }
 
@@ -73,14 +67,13 @@ public class DetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Toast.makeText(this,"返回主界面", Toast.LENGTH_SHORT).show();
-                finish();
+                onBackPressed();
                 return true;
             case R.id.edit:
                 Intent intent=new Intent(DetailActivity.this, EditActivity.class);
-                intent.putExtra("person_id",personId);
+                intent.putExtra("person_id",String.valueOf(personId));
+                Log.d("DetailActivity_id", String.valueOf(personId));
                 startActivityForResult(intent, 1);
-                //Toast.makeText(this,"编辑", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.delete:
                 AlertDialog dialog = new AlertDialog.Builder(this).setTitle("是否删除此联系人？")
@@ -88,13 +81,53 @@ public class DetailActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 LitePal.delete(ContactDatabase.class,personId);
+                                Toast.makeText(DetailActivity.this,"已删除", Toast.LENGTH_SHORT).show();
+                                onBackPressed();
                             }
                         }).setNegativeButton("取消",null).create();
                 dialog.show();
-                //dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
                 break;
             case R.id.share:
-                Toast.makeText(this,"分享", Toast.LENGTH_SHORT).show();
+                List<ContactDatabase> list;
+                list = LitePal.where("id = ?", String.valueOf(personId)).find(ContactDatabase.class);
+                TextView person_name=(TextView) findViewById(R.id.detail_name);
+                String share="姓名:"+person_name.getText();
+                TextView temp_content;
+                for (ContactDatabase one: list) {
+                    temp_content=(TextView) findViewById(R.id.detail_work_content);
+                    if (!TextUtils.isEmpty(temp_content.getText())) {
+                        share+="\n工作:"+temp_content.getText();
+                    }
+
+                    temp_content=(TextView) findViewById(R.id.detail_number_content);
+                    if (!TextUtils.isEmpty(temp_content.getText())) {
+                        share+="\n手机:"+temp_content.getText();
+                    }
+
+                    temp_content=(TextView) findViewById(R.id.detail_mail_content);
+                    if (!TextUtils.isEmpty(temp_content.getText())) {
+                        share+="\n电子邮件:"+temp_content.getText();
+                    }
+
+                    temp_content=(TextView) findViewById(R.id.detail_remark_content);
+                    if (!TextUtils.isEmpty(temp_content.getText())) {
+                        share+="\n备注:"+temp_content.getText();
+                    }
+
+                    temp_content=(TextView) findViewById(R.id.detail_address_content);
+                    if (!TextUtils.isEmpty(temp_content.getText())) {
+                        share+="\n住址:"+temp_content.getText();
+                    }
+
+                    temp_content=(TextView) findViewById(R.id.detail_birthday_content);
+                    if (!TextUtils.isEmpty(temp_content.getText())) {
+                        share+="\n生日:"+temp_content.getText();
+                    }
+                }
+                Intent sendIntent = new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, share).setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent,"分享给......"));
                 break;
             default:
         }
@@ -102,6 +135,11 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void initInfo(String name) {
+        CollapsingToolbarLayout collapsingToolbar=(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        ImageView photo=(ImageView) findViewById(R.id.detail_image_view);//联系人头像
+        //collapsingToolbar.setTitle("姓名");
+        //Glide.with(this).load( ).into(photo); //头像载入工具
+
         List<ContactDatabase> list;
         list = LitePal.where("name = ?", name).find(ContactDatabase.class);
 
@@ -161,6 +199,13 @@ public class DetailActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data)
+    {
+        Toast.makeText(this,"更新", Toast.LENGTH_SHORT).show();
+        initInfo(name);
     }
 
     @Override
