@@ -104,7 +104,8 @@ public class SearchActivity extends AppCompatActivity {
 
                 // 模糊搜索 数据库
                 if (!editText_search.getText().toString().equals("")){
-                    result_list = LitePal.where("name like ?", "%" + keyword + "%").
+                    result_list = LitePal.where("name like ? or phoneNumber like ?"
+                            , "%" + keyword + "%", "%" + keyword + "%").
                             find(ContactDatabase.class);
                 }
                 else {
