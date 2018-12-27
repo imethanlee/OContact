@@ -22,6 +22,7 @@
             android:hint="search for somebody here"
             android:inputType="text"
             android:clickable="true"
+            android:textColor="@color/white"
             android:focusableInTouchMode="false"
             android:background="@null"
             />
