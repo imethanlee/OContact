@@ -313,7 +313,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 
             String str;
             if (mode == 1){
-                str="我来组成头部";
+                str="Life is easier with O Contact";
             }
             else{
                 if (mPersonList.size() != 0){

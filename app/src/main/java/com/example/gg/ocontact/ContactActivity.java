@@ -86,6 +86,7 @@ public class ContactActivity extends AppCompatActivity {
                 return false;
             }
         });
+        toolbar.setTitle("Contact");
 
 
         // 联系人添加 FAB -- !!! 跳转 EditActivity !!!
