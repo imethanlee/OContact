@@ -1,6 +1,7 @@
 package com.example.gg.ocontact;
 
 import android.content.Context;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -66,6 +67,10 @@ public class EditListviewAdapter extends BaseAdapter implements View.OnClickList
             vh.editText.setFocusable(false);
             if(mList.get(position).getBitmap()!=null)
                 vh.imageView.setImageBitmap(mList.get(position).getBitmap());
+        }
+        if(position == 3)
+        {
+            vh.editText.setInputType(InputType.TYPE_CLASS_PHONE);
         }
 
         if(mList.get(position).getExitMessage())

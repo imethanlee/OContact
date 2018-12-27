@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -73,12 +74,20 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
+
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.edit_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         who = getIntent().getStringExtra("id");
         if (who.equals("-1"))
             who = null;
+
+        if (ContextCompat.checkSelfPermission(EditActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(EditActivity.this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 5);
+        }
+
 
         initialize(who);
 
@@ -206,7 +215,7 @@ public class EditActivity extends AppCompatActivity {
         photoImage = new ItemBean();
         if(!TextUtils.isEmpty(pathInput)) {
             Bitmap bitmap = displayImage(pathInput);
-            //photoImage.setBitmap(bitmap);
+            photoImage.setBitmap(bitmap);
         }
         list.add(photoImage);
 
@@ -359,7 +368,10 @@ public class EditActivity extends AppCompatActivity {
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
             Toast.makeText(getApplicationContext(), "path is " + imagePath,
                     Toast.LENGTH_LONG).show();
-            //imageView.setImageBitmap(bitmap);
+            if (imageView!= null)
+            {
+                imageView.setImageBitmap(bitmap);
+            }
             return bitmap;
         }else {
             Toast.makeText(this,"failed to get image",Toast.LENGTH_SHORT).show();
@@ -415,5 +427,19 @@ public class EditActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions
+            , @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 5:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(getApplicationContext(), "permission accepted."
+                            , Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "permission denied."
+                            , Toast.LENGTH_LONG).show();
+                }
+        }
+    }
 }
