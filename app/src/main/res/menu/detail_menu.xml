@@ -13,6 +13,6 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/share"
-        android:title="分享"
+        android:title="分享联系人"
         app:showAsAction="never" />
 </menu>

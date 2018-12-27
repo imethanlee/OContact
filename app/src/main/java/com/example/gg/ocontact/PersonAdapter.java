@@ -211,7 +211,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                 int position=holder.getAdapterPosition()-1;
                 Person person=mPersonList.get(position);
                 Intent intent=new Intent(view.getContext(),DetailActivity.class);
-                //intent.putExtra("person_name",person.getSerial());
+                intent.putExtra("person_name",person.getName());
                 ((Activity)view.getContext()).startActivityForResult(intent, 1);
 
 

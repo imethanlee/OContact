@@ -3,6 +3,7 @@ package com.example.gg.ocontact;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,11 @@ public class ContactActivity extends AppCompatActivity {
     private List<Person> personList=new ArrayList<>();
     private PersonAdapter adapter;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.contact_menu,menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +65,11 @@ public class ContactActivity extends AppCompatActivity {
         setHeaderView(recyclerView);
         setFooterView(recyclerView);
 
-
-
         // ToolBar 中的 Menu
         Toolbar toolbar = findViewById(R.id.contact_toolbar);
-        toolbar.inflateMenu(R.menu.contact_menu);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //toolbar.inflateMenu(R.menu.contact_menu);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
