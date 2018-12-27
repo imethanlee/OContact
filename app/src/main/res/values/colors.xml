@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#EE6AA7</color>
     <color name="colorPrimaryDark">#EE799F</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="colorAccent">@color/sandybrown</color>
     <color name="windowBackground">#EEE8AA</color>
     <color name="transparent">#00000000</color>
     <color name="navigationBarColor">#DB7093</color>

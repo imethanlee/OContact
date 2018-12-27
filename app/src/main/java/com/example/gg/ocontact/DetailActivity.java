@@ -26,8 +26,8 @@ import java.util.List;
 import static android.view.View.INVISIBLE;
 
 /*
- * To-do:12.26
- * 3.完成头像载入
+ * To-do:12.27
+ * Done
  * */
 public class DetailActivity extends AppCompatActivity {
 
