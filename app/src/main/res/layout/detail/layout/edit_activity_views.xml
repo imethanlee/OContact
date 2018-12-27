@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:visibility="gone"
-            android:src="@mipmap/photo_button"/>
+            android:src="@mipmap/camera_2"/>
 
         <EditText
             android:textColor="#000000"
