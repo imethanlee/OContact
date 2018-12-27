@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +21,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import org.litepal.LitePal;
-
 import java.util.List;
+
+import static android.view.View.INVISIBLE;
 
 /*
  * To-do:12.26
@@ -138,7 +140,8 @@ public class DetailActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar=(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         ImageView photo=(ImageView) findViewById(R.id.detail_image_view);//联系人头像
         //collapsingToolbar.setTitle("姓名");
-        //Glide.with(this).load( ).into(photo); //头像载入工具
+        //
+        String photoPath=null;
 
         List<ContactDatabase> list;
         list = LitePal.where("id = ?", name).find(ContactDatabase.class);
@@ -149,6 +152,7 @@ public class DetailActivity extends AppCompatActivity {
         for (ContactDatabase one: list) {
             person_name.setText(one.getName());
             personId=one.getId();
+            photoPath=one.getPhotoPath();
 
             temp_content=(TextView) findViewById(R.id.detail_work_content);
 
@@ -224,6 +228,21 @@ public class DetailActivity extends AppCompatActivity {
             }
         }
 
+        FloatingActionButton camera=findViewById(R.id.camera);
+        if(!TextUtils.isEmpty(photoPath)) {
+            camera.setVisibility(INVISIBLE);
+            Glide.with(this).load(photoPath).into(photo); //头像载入工具
+        }
+        else {
+            camera.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent2=new Intent(DetailActivity.this, EditActivity.class);
+                    intent2.putExtra("id",String.valueOf(personId));
+                    startActivityForResult(intent2, 1);
+                }
+            });
+        }
     }
 
     @Override
