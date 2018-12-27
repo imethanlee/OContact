@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.gg.ocontact.ContactDatabase;
 import com.example.gg.ocontact.EditListviewAdapter;
@@ -72,6 +73,9 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.edit_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         who = getIntent().getStringExtra("id");
         if (who.equals("-1"))
             who = null;

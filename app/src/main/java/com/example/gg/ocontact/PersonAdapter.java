@@ -217,7 +217,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                 int position=holder.getAdapterPosition()-1;
                 Person person=mPersonList.get(position);
                 Intent intent=new Intent(view.getContext(),DetailActivity.class);
-                intent.putExtra("person_name",person.getName());
+                intent.putExtra("id",Integer.toString(person.getId()));
                 ((Activity)view.getContext()).startActivityForResult(intent, 1);
 
                 //点击详情按钮后的逻辑。

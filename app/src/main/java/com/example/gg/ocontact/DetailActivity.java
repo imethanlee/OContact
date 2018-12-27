@@ -37,7 +37,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         //setTitle("");
         Intent intent=getIntent();
-        name=intent.getStringExtra("person_name");
+        name=intent.getStringExtra("id");
         Log.d("DetailActivity", name);
 
         initInfo(name);//初始化详细信息
@@ -141,7 +141,7 @@ public class DetailActivity extends AppCompatActivity {
         //Glide.with(this).load( ).into(photo); //头像载入工具
 
         List<ContactDatabase> list;
-        list = LitePal.where("name = ?", name).find(ContactDatabase.class);
+        list = LitePal.where("id = ?", name).find(ContactDatabase.class);
 
         TextView person_name=(TextView) findViewById(R.id.detail_name);
         TextView temp;
