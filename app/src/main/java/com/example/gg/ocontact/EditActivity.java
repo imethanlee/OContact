@@ -390,7 +390,8 @@ public class EditActivity extends AppCompatActivity {
         contactDatabase.setAddress(ad);
         contactDatabase.setPhotoPath(photoPath);
 
-        contactDatabase.updateAll("id = ?",who);
+        Toast.makeText(getApplicationContext(), "id is " + who, Toast.LENGTH_LONG).show();
+        contactDatabase.updateAll("id = ?", who);
     }
 
     private void findData(String id)

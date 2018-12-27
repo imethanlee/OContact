@@ -71,7 +71,7 @@ public class DetailActivity extends AppCompatActivity {
                 return true;
             case R.id.edit:
                 Intent intent=new Intent(DetailActivity.this, EditActivity.class);
-                intent.putExtra("person_id",String.valueOf(personId));
+                intent.putExtra("id",String.valueOf(personId));
                 Log.d("DetailActivity_id", String.valueOf(personId));
                 startActivityForResult(intent, 1);
                 break;
@@ -151,51 +151,76 @@ public class DetailActivity extends AppCompatActivity {
             personId=one.getId();
 
             temp_content=(TextView) findViewById(R.id.detail_work_content);
+
             temp_content.setText(one.getJob());
+            temp=(TextView) findViewById(R.id.detail_work);
             if (TextUtils.isEmpty(temp_content.getText())) {
-                temp=(TextView) findViewById(R.id.detail_work);
                 temp.setVisibility(View.GONE);
                 temp_content.setVisibility(View.GONE);
+            }
+            else {
+                temp.setVisibility(View.VISIBLE);
+                temp_content.setVisibility(View.VISIBLE);
             }
 
             temp_content=(TextView) findViewById(R.id.detail_number_content);
             temp_content.setText(one.getPhoneNumber());
+            temp=(TextView) findViewById(R.id.detail_number);
             if (TextUtils.isEmpty(temp_content.getText())) {
-                temp=(TextView) findViewById(R.id.detail_number);
                 temp.setVisibility(View.GONE);
                 temp_content.setVisibility(View.GONE);
+            }
+            else {
+                temp.setVisibility(View.VISIBLE);
+                temp_content.setVisibility(View.VISIBLE);
             }
 
             temp_content=(TextView) findViewById(R.id.detail_mail_content);
             temp_content.setText(one.getEmail());
+            temp=(TextView) findViewById(R.id.detail_mail);
             if (TextUtils.isEmpty(temp_content.getText())) {
-                temp=(TextView) findViewById(R.id.detail_mail);
                 temp.setVisibility(View.GONE);
                 temp_content.setVisibility(View.GONE);
+            }
+            else {
+                temp.setVisibility(View.VISIBLE);
+                temp_content.setVisibility(View.VISIBLE);
             }
 
             temp_content=(TextView) findViewById(R.id.detail_address_content);
             temp_content.setText(one.getAddress());
+            temp=(TextView) findViewById(R.id.detail_address);
             if (TextUtils.isEmpty(temp_content.getText())) {
-                temp=(TextView) findViewById(R.id.detail_address);
                 temp.setVisibility(View.GONE);
                 temp_content.setVisibility(View.GONE);
+            }
+            else {
+                temp.setVisibility(View.VISIBLE);
+                temp_content.setVisibility(View.VISIBLE);
             }
 
             temp_content=(TextView) findViewById(R.id.detail_remark_content);
             temp_content.setText(one.getComment());
+            temp=(TextView) findViewById(R.id.detail_remark);
             if (TextUtils.isEmpty(temp_content.getText())) {
-                temp=(TextView) findViewById(R.id.detail_remark);
                 temp.setVisibility(View.GONE);
                 temp_content.setVisibility(View.GONE);
+            }
+            else {
+                temp.setVisibility(View.VISIBLE);
+                temp_content.setVisibility(View.VISIBLE);
             }
 
             temp_content=(TextView) findViewById(R.id.detail_birthday_content);
             temp_content.setText(one.getBirthday());
+            temp=(TextView) findViewById(R.id.detail_birthday);
             if (TextUtils.isEmpty(temp_content.getText())) {
-                temp=(TextView) findViewById(R.id.detail_birthday);
                 temp.setVisibility(View.GONE);
                 temp_content.setVisibility(View.GONE);
+            }
+            else {
+                temp.setVisibility(View.VISIBLE);
+                temp_content.setVisibility(View.VISIBLE);
             }
         }
 

@@ -140,7 +140,7 @@ public class ContactActivity extends AppCompatActivity {
 
         for(ContactDatabase person0: allContacts) {
             // 图片未成功
-            Person person = new Person(person0.getName(), R.mipmap.account);
+            Person person = new Person(person0.getId(), person0.getName(), R.mipmap.account);
             personList.add(person);
         }
         //这一步本应该从数据库中导入数据，然后登记到类上

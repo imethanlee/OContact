@@ -18,12 +18,14 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Handler;
 
 public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> {
     private List<Person>mPersonList;
     private boolean visibleBoard[];
     private int mode;
     private int previousPosition;
+    private View previousV;
 
     //boolean visible=false;
     void switchvisible(View v,int pos){
@@ -109,6 +111,8 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
             public void onClick(View v){
                 if (mode == 1){
                     int position=holder.getAdapterPosition() - 1;
+                    final int position_anim = position;
+                    final View v_anim = v;
                     Person person = mPersonList.get(position);
                     //Toast.makeText(v.getContext(),"你点击了文本布局："+person.getName(),Toast.LENGTH_SHORT).show();
 
@@ -122,31 +126,33 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                 */
                     Toast.makeText(v.getContext(),"你点击了图片:"+String.valueOf(position),Toast.LENGTH_SHORT).show();
 
-                    /* 动画测试
-                    TranslateAnimation mShowAction;
-                    TranslateAnimation mHiddenAction;
-                    if (visibleBoard[position] == false){
+                    if (visibleBoard[position] == false) {
+                        holder.lowerLayout.setVisibility(View.VISIBLE);
+                        switchvisible(v_anim,position_anim);
+
+                        TranslateAnimation mShowAction;
+                        TranslateAnimation mHiddenAction;
                         mShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
                                 Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-                                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+                                -0.3f, Animation.RELATIVE_TO_SELF, 0.0f);
                         mShowAction.setDuration(500);
                         holder.lowerLayout.startAnimation(mShowAction);
                     }
                     else {
+                        /*
+                        TranslateAnimation mShowAction;
+                        final TranslateAnimation mHiddenAction;
                         mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
                                 Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-                                0.0f, Animation.RELATIVE_TO_SELF, -1.0f);
+                                0f, Animation.RELATIVE_TO_SELF, -0.3f);
                         mHiddenAction.setDuration(500);
                         holder.lowerLayout.startAnimation(mHiddenAction);
+                        */
+
+                        holder.lowerLayout.setVisibility(View.GONE);
+                        switchvisible(v_anim,position_anim);
+
                     }
-
-                    Timer timer = new Timer();
-                    timer.schedule(new TimerTask() {@Override public void run() { } },500); // 延时1秒
-
-                    */ //动画测试
-
-                    holder.lowerLayout.setVisibility(visibleBoard[position]==true? View.GONE:View.VISIBLE);//展开就关闭 关闭就展开。
-                    switchvisible(v,position);
 
                     previousPosition = position;
                 }
@@ -213,9 +219,6 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                 Intent intent=new Intent(view.getContext(),DetailActivity.class);
                 intent.putExtra("person_name",person.getName());
                 ((Activity)view.getContext()).startActivityForResult(intent, 1);
-
-
-
 
                 //点击详情按钮后的逻辑。
 
