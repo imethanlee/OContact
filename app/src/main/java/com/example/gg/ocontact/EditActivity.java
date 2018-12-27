@@ -12,8 +12,11 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -55,6 +58,10 @@ public class EditActivity extends AppCompatActivity {
         Log.d("EditActivity_id", who);
 
         initialize(who);
+
+        Toolbar toolbar = findViewById(R.id.edit_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -120,7 +127,7 @@ public class EditActivity extends AppCompatActivity {
 
                 finish();
             }
-        });
+        });/**/
     }
 
 

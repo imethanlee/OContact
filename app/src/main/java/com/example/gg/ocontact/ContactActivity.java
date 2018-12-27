@@ -81,6 +81,7 @@ public class ContactActivity extends AppCompatActivity {
                         Intent toSearchActivity = new Intent(ContactActivity.this, SearchActivity.class);
                         startActivity(toSearchActivity);
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        break;
                 }
                 return false;
             }
