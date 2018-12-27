@@ -9,12 +9,12 @@ public class Person extends LitePalSupport {
     private String phoneNumber;
     private String Serial;
 
-    public Person(int id, String name, int imageId)
+    public Person(int id, String name, int imageId, String phoneNumber)
     {
         this.id = id;
-        this.name=name;
-        this.imageId=imageId;
-        this.phoneNumber="10086";
+        this.name = name;
+        this.imageId = imageId;
+        this.phoneNumber = phoneNumber;
         this.Serial="1";
     }
 

@@ -108,7 +108,8 @@ public class SearchActivity extends AppCompatActivity {
                 Toast.makeText(SearchActivity.this, size, Toast.LENGTH_SHORT).show();
 
                 for(ContactDatabase one: result_list) {
-                    Person person= new Person(one.getId(), one.getName(),R.drawable.apple_pic);
+                    Person person= new Person(one.getId(), one.getName(),
+                            R.drawable.apple_pic, one.getPhoneNumber());
                     personList.add(person);
                 }
                 adapter = new PersonAdapter(personList, 2);
