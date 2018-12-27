@@ -296,7 +296,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         }else if(getItemViewType(position) == TYPE_FOOTER){
             String str;
             if(mode==1) {
-                str = "这里一共有：" + String.valueOf(mPersonList.size()) + "名联系人";
+                str = String.valueOf(mPersonList.size()) + " contacts";
             }
             else{
                 if (mPersonList.size() != 0){
