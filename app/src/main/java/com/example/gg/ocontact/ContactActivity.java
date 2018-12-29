@@ -1,9 +1,12 @@
 package com.example.gg.ocontact;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +38,7 @@ public class ContactActivity extends AppCompatActivity {
 
     private List<Person> personList=new ArrayList<>();
     private PersonAdapter adapter;
+    private DeletionReceiver receiver;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,6 +69,13 @@ public class ContactActivity extends AppCompatActivity {
         setHeaderView(recyclerView);
         setFooterView(recyclerView);
 
+        /*/ 删除更新广播
+        receiver = new DeletionReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.example.gg.ocontact.DeletionService");
+        //registerReceiver(receiver, filter);
+        */
+
         // ToolBar 中的 Menu
         Toolbar toolbar = findViewById(R.id.contact_toolbar);
         setSupportActionBar(toolbar);
@@ -75,7 +86,9 @@ public class ContactActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.contact_menu_contact_us:
-                        showToast("Contact us clicked");
+                        Intent toGithub = new Intent(Intent.ACTION_VIEW);
+                        toGithub.setData(Uri.parse("https://github.com/Atlas666/OContact"));
+                        startActivity(toGithub);
                         break;
                     case R.id.item_search:
                         Intent toSearchActivity = new Intent(ContactActivity.this, SearchActivity.class);
@@ -97,7 +110,6 @@ public class ContactActivity extends AppCompatActivity {
                 Intent intent = new Intent(ContactActivity.this, EditActivity.class);
                 intent.putExtra("id", "-1");
                 startActivity(intent);
-                showToast("'fab_add' clicked");
             }
         });
 
@@ -109,14 +121,12 @@ public class ContactActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 recyclerView.scrollToPosition(0);
-                showToast("'fab_to_the_top' clicked");
             }
         });
 
 
 
         //RecyclerView recyclerView = findViewById(R.id.contact_recyclerView);
-
 
     }
 
@@ -169,8 +179,8 @@ public class ContactActivity extends AppCompatActivity {
 
     // 返回界面时，重新加载recycler view
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         initRecycleView();
         RecyclerView recyclerView = findViewById(R.id.contact_recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -179,5 +189,12 @@ public class ContactActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         setHeaderView(recyclerView);
         setFooterView(recyclerView);
+    }
+
+    public class DeletionReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //initRecycleView();
+        }
     }
 }

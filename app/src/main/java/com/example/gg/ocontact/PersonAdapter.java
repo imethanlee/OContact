@@ -1,8 +1,15 @@
 package com.example.gg.ocontact;
 import android.app.Activity;
+import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -19,6 +26,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+
+import org.litepal.LitePal;
 
 import java.util.List;
 import java.util.Timer;
@@ -61,6 +70,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         Button messageButton;
         TextView footerText;
         TextView headerText;
+        LinearLayout linearLayout;
 
 
         public ViewHolder(View view)
@@ -83,6 +93,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
             //phoneCallButton2=(Button)view.findViewById(R.id.phone_call3);
             informationButton=(Button)view.findViewById(R.id.details);
             messageButton=(Button)view.findViewById(R.id.message);
+            linearLayout=view.findViewById(R.id.upper_layout);
 
 
         }
@@ -114,6 +125,31 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
 
         holder.lowerLayout.setVisibility(View.GONE);
 
+        if (mode == 1){
+            holder.textLayout.setLongClickable(true);
+            holder.textLayout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    AlertDialog dialog = new AlertDialog.Builder(v.getContext()).setTitle("Are you sure to delete?")
+                            .setPositiveButton("Delete!", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    int position=holder.getAdapterPosition()-1;
+                                    Person person=mPersonList.get(position);
+                                    LitePal.delete(ContactDatabase.class,person.getId());
+                                    Toast.makeText(v.getContext(),"Deleted", Toast.LENGTH_SHORT).show();
+                                    holder.linearLayout.setVisibility(View.GONE);
+                                }
+                            }).setNegativeButton("Cancel",null).create();
+                    dialog.show();
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
+                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                    return true;
+                }
+            });
+        }
+
+
         holder.textLayout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -132,7 +168,6 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                         holder.lowerLayout.setVisibility(View.GONE);
                 }
                 */
-                    Toast.makeText(v.getContext(),"你点击了图片:"+String.valueOf(position),Toast.LENGTH_SHORT).show();
 
                     if (visibleBoard[position] == false) {
                         holder.lowerLayout.setVisibility(View.VISIBLE);
@@ -165,9 +200,13 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                     previousPosition = position;
                 }
                 else {
-                    int position = holder.getAdapterPosition() - 1;
-                    Toast.makeText(v.getContext(),"Heading to result "+String.valueOf(position) + "'s detail",
-                            Toast.LENGTH_SHORT).show();
+                    int position=holder.getAdapterPosition()-1;
+                    Person person=mPersonList.get(position);
+                    Intent intent=new Intent(v.getContext(),DetailActivity.class);
+                    intent.putExtra("id",Integer.toString(person.getId()));
+                    ((Activity)v.getContext()).startActivityForResult(intent, 1);
+
+                    //点击详情按钮后的逻辑。
                 }
             }
         });
@@ -176,8 +215,11 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
             public void onClick(View v) {
                 int position=holder.getAdapterPosition()-1;
                 Person person=mPersonList.get(position);
-                Toast.makeText(v.getContext(),"你点击了图片:"+person.getName(),Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(v.getContext(),DetailActivity.class);
+                intent.putExtra("id",Integer.toString(person.getId()));
+                ((Activity)v.getContext()).startActivityForResult(intent, 1);
 
+                //点击详情按钮后的逻辑。
             }
         });
 

@@ -126,8 +126,7 @@ public class EditActivity extends AppCompatActivity {
                                     if(Build.VERSION.SDK_INT>=24){
                                         imageUri = FileProvider.getUriForFile(EditActivity.this,
                                                 "com.example.gg.ocontact.fileprovider",outputImage);
-                                        Toast.makeText(getApplicationContext(),
-                                                imageUri.toString(), Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(getApplicationContext(), imageUri.toString(), Toast.LENGTH_LONG).show();
                                     }else {
                                         imageUri = Uri.fromFile(outputImage);
                                     }
@@ -189,11 +188,11 @@ public class EditActivity extends AppCompatActivity {
                     //数据库存储
                     if(TextUtils.isEmpty(who)){
                         saveData(nameOutput,workOutput,phoneOutput,emailOutput,tipOutput,addressOutput,birthOutput);
-                        Toast.makeText(EditActivity.this, "save!"+nameOutput+phoneOutput, Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditActivity.this, "Save Successfully!", Toast.LENGTH_SHORT).show();
                     }
                     else{
                         updateData(nameOutput,workOutput,phoneOutput,emailOutput,tipOutput,addressOutput,birthOutput);
-                        Toast.makeText(EditActivity.this, "update!"+nameOutput+phoneOutput, Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditActivity.this, "update Successfully!", Toast.LENGTH_SHORT).show();
                     }
                     //Log.d(EditActivity.class.getSimpleName(), nameOutput+workOutput+phoneOutput);
 
@@ -221,7 +220,7 @@ public class EditActivity extends AppCompatActivity {
 
 
         ItemBean editname = new ItemBean();
-        editname.setHint("姓名");
+        editname.setHint("Name");
         if(!TextUtils.isEmpty(nameInput)) {
             editname.setExitMessage(true);
             editname.setText(nameInput);
@@ -229,7 +228,7 @@ public class EditActivity extends AppCompatActivity {
         list.add(editname);
 
         ItemBean editwork = new ItemBean();
-        editwork.setHint("工作");
+        editwork.setHint("Work");
         if(!TextUtils.isEmpty(workInput)) {
             editwork.setExitMessage(true);
             editwork.setText(workInput);
@@ -237,7 +236,7 @@ public class EditActivity extends AppCompatActivity {
         list.add(editwork);
 
         ItemBean editphone = new ItemBean();
-        editphone.setHint("手机");
+        editphone.setHint("Phone number");
         if(!TextUtils.isEmpty(phoneInput)) {
             editphone.setExitMessage(true);
             editphone.setText(phoneInput);
@@ -245,7 +244,7 @@ public class EditActivity extends AppCompatActivity {
         list.add(editphone);
 
         ItemBean editemail = new ItemBean();
-        editemail.setHint("电子邮件");
+        editemail.setHint("Email");
         if(!TextUtils.isEmpty(emailInput)) {
             editemail.setExitMessage(true);
             editemail.setText(emailInput);
@@ -253,7 +252,7 @@ public class EditActivity extends AppCompatActivity {
         list.add(editemail);
 
         ItemBean edittip = new ItemBean();
-        edittip.setHint("备注");
+        edittip.setHint("Comments");
         if(!TextUtils.isEmpty(noteInput)) {
             edittip.setExitMessage(true);
             edittip.setText(noteInput);
@@ -261,7 +260,7 @@ public class EditActivity extends AppCompatActivity {
         list.add(edittip);
 
         ItemBean editaddress = new ItemBean();
-        editaddress.setHint("住址");
+        editaddress.setHint("Address");
         if(!TextUtils.isEmpty(addressInput)) {
             editaddress.setExitMessage(true);
             editaddress.setText(addressInput);
@@ -269,7 +268,7 @@ public class EditActivity extends AppCompatActivity {
         list.add(editaddress);
 
         ItemBean editbirth = new ItemBean();
-        editbirth.setHint("生日");
+        editbirth.setHint("Birthday");
         if(!TextUtils.isEmpty(birthInput)) {
             editbirth.setExitMessage(true);
             editbirth.setText(birthInput);
@@ -296,7 +295,7 @@ public class EditActivity extends AppCompatActivity {
                         photoImage.setBitmap(bitmap);
                         imageView.setImageBitmap(bitmap);
                         if (bitmap == null){
-                            Toast.makeText(this, "456789123", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Bitmap is null", Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (FileNotFoundException e) {
@@ -366,8 +365,7 @@ public class EditActivity extends AppCompatActivity {
         if(imagePath != null){
             photoPath = imagePath;
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-            Toast.makeText(getApplicationContext(), "path is " + imagePath,
-                    Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "path is " + imagePath, Toast.LENGTH_LONG).show();
             if (imageView!= null)
             {
                 imageView.setImageBitmap(bitmap);

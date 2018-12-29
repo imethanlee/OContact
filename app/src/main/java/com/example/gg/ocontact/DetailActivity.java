@@ -78,58 +78,58 @@ public class DetailActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
                 break;
             case R.id.delete:
-                AlertDialog dialog = new AlertDialog.Builder(this).setTitle("是否删除此联系人？")
-                        .setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                AlertDialog dialog = new AlertDialog.Builder(this).setTitle("Are you sure to delete?")
+                        .setPositiveButton("Delete!", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 LitePal.delete(ContactDatabase.class,personId);
-                                Toast.makeText(DetailActivity.this,"已删除", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(DetailActivity.this,"Deleted", Toast.LENGTH_SHORT).show();
                                 onBackPressed();
                             }
-                        }).setNegativeButton("取消",null).create();
+                        }).setNegativeButton("Cancel",null).create();
                 dialog.show();
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
                 dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
                 break;
             case R.id.share:
                 List<ContactDatabase> list;
                 list = LitePal.where("id = ?", String.valueOf(personId)).find(ContactDatabase.class);
                 TextView person_name=(TextView) findViewById(R.id.detail_name);
-                String share="姓名:"+person_name.getText();
+                String share="Name:"+person_name.getText();
                 TextView temp_content;
                 for (ContactDatabase one: list) {
                     temp_content=(TextView) findViewById(R.id.detail_work_content);
                     if (!TextUtils.isEmpty(temp_content.getText())) {
-                        share+="\n工作:"+temp_content.getText();
+                        share+="\nWork:"+temp_content.getText();
                     }
 
                     temp_content=(TextView) findViewById(R.id.detail_number_content);
                     if (!TextUtils.isEmpty(temp_content.getText())) {
-                        share+="\n手机:"+temp_content.getText();
+                        share+="\nPhone number:"+temp_content.getText();
                     }
 
                     temp_content=(TextView) findViewById(R.id.detail_mail_content);
                     if (!TextUtils.isEmpty(temp_content.getText())) {
-                        share+="\n电子邮件:"+temp_content.getText();
+                        share+="\nEmail:"+temp_content.getText();
                     }
 
                     temp_content=(TextView) findViewById(R.id.detail_remark_content);
                     if (!TextUtils.isEmpty(temp_content.getText())) {
-                        share+="\n备注:"+temp_content.getText();
+                        share+="\nComments:"+temp_content.getText();
                     }
 
                     temp_content=(TextView) findViewById(R.id.detail_address_content);
                     if (!TextUtils.isEmpty(temp_content.getText())) {
-                        share+="\n住址:"+temp_content.getText();
+                        share+="\nAddress:"+temp_content.getText();
                     }
 
                     temp_content=(TextView) findViewById(R.id.detail_birthday_content);
                     if (!TextUtils.isEmpty(temp_content.getText())) {
-                        share+="\n生日:"+temp_content.getText();
+                        share+="\nBirthday:"+temp_content.getText();
                     }
                 }
                 Intent sendIntent = new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, share).setType("text/plain");
-                startActivity(Intent.createChooser(sendIntent,"分享给......"));
+                startActivity(Intent.createChooser(sendIntent,"Share to ..."));
                 break;
             default:
         }
@@ -248,7 +248,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode,int resultCode,Intent data)
     {
-        Toast.makeText(this,"更新", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"更新", Toast.LENGTH_SHORT).show();
         initInfo(name);
     }
 

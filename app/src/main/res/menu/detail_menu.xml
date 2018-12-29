@@ -5,14 +5,14 @@
 
     <item
         android:id="@+id/edit"
-        android:title="编辑"
+        android:title="Edit"
         app:showAsAction="always" />
     <item
         android:id="@+id/delete"
-        android:title="删除"
+        android:title="Delete"
         app:showAsAction="never" />
     <item
         android:id="@+id/share"
-        android:title="分享联系人"
+        android:title="Share contact"
         app:showAsAction="never" />
 </menu>

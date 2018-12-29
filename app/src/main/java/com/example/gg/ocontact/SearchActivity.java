@@ -102,10 +102,6 @@ public class SearchActivity extends AppCompatActivity {
                     result_list.clear();
                 }
 
-                String size = Integer.toString(result_list.size());
-
-                // 显示结果个数
-                Toast.makeText(SearchActivity.this, size, Toast.LENGTH_SHORT).show();
 
                 for(ContactDatabase one: result_list) {
                     Person person= new Person(one.getId(), one.getName(),
