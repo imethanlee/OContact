@@ -5,10 +5,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,20 +21,17 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
 import org.litepal.LitePal;
-import org.litepal.crud.DataSupport;
-import org.litepal.crud.LitePalSupport;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
+import static com.example.gg.ocontact.MyThemeUtils.changeTheme;
 
 public class ContactActivity extends AppCompatActivity {
 
@@ -49,10 +48,12 @@ public class ContactActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyThemeUtils.initTheme(ContactActivity.this);
         setContentView(R.layout.activity_contact);
         Slide slide = new Slide();
         slide.setDuration(1000);
         getWindow().setExitTransition(slide);
+
 
         // 创建数据库(如无)
         LitePal.getDatabase();
@@ -94,6 +95,9 @@ public class ContactActivity extends AppCompatActivity {
                         Intent toSearchActivity = new Intent(ContactActivity.this, SearchActivity.class);
                         startActivity(toSearchActivity);
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        break;
+                    case R.id.change_theme:
+                        showThemeChooseDialog();
                         break;
                 }
                 return false;
@@ -197,4 +201,38 @@ public class ContactActivity extends AppCompatActivity {
             //initRecycleView();
         }
     }
+
+    private void showThemeChooseDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ContactActivity.this);
+        builder.setTitle("Choose theme");
+        Integer[] res = new Integer[]{R.drawable.red_round, R.drawable.brown_round, R.drawable.blue_round,
+                R.drawable.blue_grey_round, R.drawable.yellow_round, R.drawable.deep_purple_round,
+                R.drawable.pink_round, R.drawable.green_round, R.drawable.deep_orange_round,
+                R.drawable.grey_round, R.drawable.cyan_round, R.drawable.amber_round};
+        List<Integer> list = Arrays.asList(res);
+        ColorsListAdapter adapter = new ColorsListAdapter(ContactActivity.this, list);
+        adapter.setCheckItem(MyThemeUtils.getCurrentTheme(ContactActivity.this).getIntValue());
+        GridView gridView = (GridView) LayoutInflater.from(ContactActivity.this).inflate(R.layout.colors_panel_layout, null);
+        gridView.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
+        gridView.setCacheColorHint(0);
+        gridView.setAdapter(adapter);
+        builder.setView(gridView);
+        final AlertDialog dialog = builder.show();
+        gridView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        dialog.dismiss();
+                        int value = MyThemeUtils.getCurrentTheme(ContactActivity.this).getIntValue();
+                        if (value != position) {
+                            PreferenceUtils.getInstance(ContactActivity.this).saveParam("change_theme_key", position);
+                            changeTheme(ContactActivity.this,MyThemeUtils.Theme.mapValueToTheme(position));
+                            recreate();
+                        }
+                    }
+                }
+
+        );
+    }
+
 }

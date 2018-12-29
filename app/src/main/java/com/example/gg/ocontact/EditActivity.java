@@ -77,6 +77,7 @@ public class EditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyThemeUtils.initTheme(EditActivity.this);
         setContentView(R.layout.activity_edit);
 
 //        // 可以调用该方法，设置是否允许滑动退出

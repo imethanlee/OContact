@@ -27,7 +27,7 @@
             android:singleLine="true"
             android:textSize="20sp"
             app:met_baseColor="@color/grey"
-            app:met_primaryColor="@color/colorPrimary"
+            app:met_primaryColor="?attr/colorPrimary"
             app:met_floatingLabel="highlight"
             app:met_clearButton="true"
             app:met_floatingLabelAnimating="true"/>

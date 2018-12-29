@@ -45,5 +45,6 @@ dependencies {
     implementation 'org.litepal.android:core:2.0.0'
     implementation 'me.imid.swipebacklayout.lib:library:1.1.0'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
-
+    implementation 'io.reactivex:rxandroid:1.1.0'
+    implementation 'io.reactivex:rxjava:1.1.0'
 }

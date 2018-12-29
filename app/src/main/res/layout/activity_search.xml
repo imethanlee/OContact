@@ -19,7 +19,7 @@
             android:id="@+id/search_edit_text_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="search for somebody here"
+            android:hint="Search for somebody here"
             android:inputType="text"
             android:clickable="true"
             android:textColor="@color/white"
