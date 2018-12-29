@@ -23,13 +23,17 @@ import com.bumptech.glide.Glide;
 import org.litepal.LitePal;
 import java.util.List;
 
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
 import static android.view.View.INVISIBLE;
 
 /*
  * To-do:12.27
  * Done
  * */
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends SwipeBackActivity {
+    private SwipeBackLayout mSwipeBackLayout;
 
     int personId;
     String name;
@@ -37,7 +41,15 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        //setTitle("");
+
+        // 可以调用该方法，设置是否允许滑动退出
+        setSwipeBackEnable(true);
+        mSwipeBackLayout = getSwipeBackLayout();
+        // 设置滑动方向，可设置EDGE_LEFT, EDGE_RIGHT, EDGE_ALL, EDGE_BOTTOM
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+        // 滑动退出的效果只能从边界滑动才有效果，如果要扩大touch的范围，可以调用这个方法
+        mSwipeBackLayout.setEdgeSize(100);
+
         Intent intent=getIntent();
         name=intent.getStringExtra("id");
         Log.d("DetailActivity", name);
@@ -79,7 +91,7 @@ public class DetailActivity extends AppCompatActivity {
                 break;
             case R.id.delete:
                 AlertDialog dialog = new AlertDialog.Builder(this).setTitle("Are you sure to delete?")
-                        .setPositiveButton("Delete!", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 LitePal.delete(ContactDatabase.class,personId);
@@ -228,7 +240,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         }
 
-        FloatingActionButton camera=findViewById(R.id.camera);
+        FloatingActionButton camera= (FloatingActionButton) findViewById(R.id.camera);
         if(!TextUtils.isEmpty(photoPath)) {
             camera.setVisibility(INVISIBLE);
             Glide.with(this).load(photoPath).into(photo); //头像载入工具

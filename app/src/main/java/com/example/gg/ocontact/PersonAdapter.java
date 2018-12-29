@@ -131,7 +131,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                 @Override
                 public boolean onLongClick(View v) {
                     AlertDialog dialog = new AlertDialog.Builder(v.getContext()).setTitle("Are you sure to delete?")
-                            .setPositiveButton("Delete!", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     int position=holder.getAdapterPosition()-1;

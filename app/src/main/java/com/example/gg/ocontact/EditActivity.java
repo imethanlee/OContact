@@ -44,6 +44,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
 public class EditActivity extends AppCompatActivity {
 
     List<ItemBean> list = new ArrayList<>();
@@ -69,13 +72,22 @@ public class EditActivity extends AppCompatActivity {
 
     ItemBean photoImage ;
     ImageView imageView =null;
+
+    //private SwipeBackLayout mSwipeBackLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
+//        // 可以调用该方法，设置是否允许滑动退出
+//        setSwipeBackEnable(true);
+//        mSwipeBackLayout = getSwipeBackLayout();
+//        // 设置滑动方向，可设置EDGE_LEFT, EDGE_RIGHT, EDGE_ALL, EDGE_BOTTOM
+//        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+//        // 滑动退出的效果只能从边界滑动才有效果，如果要扩大touch的范围，可以调用这个方法
+//        mSwipeBackLayout.setEdgeSize(200);
 
-        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.edit_toolbar);
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.edit_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         who = getIntent().getStringExtra("id");
@@ -99,14 +111,14 @@ public class EditActivity extends AppCompatActivity {
                 if (position==0) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(EditActivity.this);
                     //    指定下拉列表的显示数据
-                    final String[] choices = {"拍照", "从相册选择"};
+                    final String[] choices = {"Take photo", "Choose from album"};
                     //    设置一个下拉的列表选择项
                     builder.setItems(choices, new DialogInterface.OnClickListener()
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which)
                         {
-                            imageView = findViewById(R.id.im_test);
+                            imageView = (ImageView) findViewById(R.id.im_test);
                             switch (which)
                             {
                                 case 0:
@@ -159,7 +171,7 @@ public class EditActivity extends AppCompatActivity {
         adapter = new EditListviewAdapter( list,this);
         listView.setAdapter(adapter);
 
-        Button cancel = findViewById(R.id.cancel);
+        Button cancel = (Button) findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,7 +179,7 @@ public class EditActivity extends AppCompatActivity {
             }
         });
 
-        Button save = findViewById(R.id.Save);
+        Button save = (Button) findViewById(R.id.Save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,17 +194,17 @@ public class EditActivity extends AppCompatActivity {
 
                 //更改//
                 if(TextUtils.isEmpty(nameOutput)|| TextUtils.isEmpty(phoneOutput)) {
-                    Toast.makeText(EditActivity.this, "Name and phone number cannot be empty!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditActivity.this, "Name and phone number CANNOT be empty", Toast.LENGTH_LONG).show();
                 }
                 else{
                     //数据库存储
                     if(TextUtils.isEmpty(who)){
                         saveData(nameOutput,workOutput,phoneOutput,emailOutput,tipOutput,addressOutput,birthOutput);
-                        Toast.makeText(EditActivity.this, "Save Successfully!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditActivity.this, "Save Successfully", Toast.LENGTH_SHORT).show();
                     }
                     else{
                         updateData(nameOutput,workOutput,phoneOutput,emailOutput,tipOutput,addressOutput,birthOutput);
-                        Toast.makeText(EditActivity.this, "update Successfully!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditActivity.this, "Update Successfully", Toast.LENGTH_SHORT).show();
                     }
                     //Log.d(EditActivity.class.getSimpleName(), nameOutput+workOutput+phoneOutput);
 
@@ -404,7 +416,7 @@ public class EditActivity extends AppCompatActivity {
         contactDatabase.setAddress(ad);
         contactDatabase.setPhotoPath(photoPath);
 
-        Toast.makeText(getApplicationContext(), "id is " + who, Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(), "id is " + who, Toast.LENGTH_LONG).show();
         contactDatabase.updateAll("id = ?", who);
     }
 
@@ -431,11 +443,11 @@ public class EditActivity extends AppCompatActivity {
         switch (requestCode){
             case 5:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(getApplicationContext(), "permission accepted."
+                    Toast.makeText(getApplicationContext(), "Permission accepted"
                             , Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "permission denied."
+                    Toast.makeText(getApplicationContext(), "Permission denied"
                             , Toast.LENGTH_LONG).show();
                 }
         }

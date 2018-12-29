@@ -12,6 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.rengwuxian.materialedittext.MaterialEditText;
+
 import java.util.List;
 
 public class EditListviewAdapter extends BaseAdapter implements View.OnClickListener, View.OnTouchListener, View.OnFocusChangeListener, View.OnLongClickListener {
@@ -76,6 +78,7 @@ public class EditListviewAdapter extends BaseAdapter implements View.OnClickList
         if(mList.get(position).getExitMessage())
             vh.editText.setText(text);
         vh.editText.setHint(hint);
+        vh.editText.setFloatingLabelText(hint);
 
 
         vh.editText.setSelection(vh.editText.length());
@@ -130,10 +133,10 @@ public class EditListviewAdapter extends BaseAdapter implements View.OnClickList
     }
 
     public class ViewHolder {
-        EditText editText;
+        MaterialEditText editText;
         ImageView imageView;
         public ViewHolder(View convertView) {
-            editText = (EditText) convertView.findViewById(R.id.et_test);
+            editText = (MaterialEditText) convertView.findViewById(R.id.et_test);
             imageView = (ImageView)convertView.findViewById(R.id.im_test);
         }
     }
