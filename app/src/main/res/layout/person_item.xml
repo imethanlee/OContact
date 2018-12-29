@@ -52,40 +52,46 @@
     <LinearLayout
         android:id="@+id/lower_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:animateLayoutChanges="true">
 
         <Button
             android:id="@+id/phone_call1"
             android:layout_width="90dp"
-            android:layout_height="89dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:drawableLeft="@drawable/phone_new"
-            android:text="Call"
+            android:background="@color/transparent"
             android:textAllCaps="false"
+            android:textColor="@color/grey"
+            android:text="Call"
             />
 
         <Button
             android:id="@+id/message"
             android:layout_width="90dp"
-            android:layout_height="89dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="9dp"
             android:layout_weight="1"
             android:drawableLeft="@drawable/sms_new"
+            android:background="@color/transparent"
+            android:textColor="@color/grey"
             android:textAllCaps="false"
             android:text="SMS" />
 
         <Button
             android:id="@+id/details"
             android:layout_width="90dp"
-            android:layout_height="89dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="9dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:drawableLeft="@drawable/info_new"
+            android:background="@color/transparent"
             android:textAllCaps="false"
-            android:text="Details" />
+            android:textColor="@color/grey"
+            android:text="Detail" />
 
 
 

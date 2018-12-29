@@ -4,7 +4,7 @@
         android:id="@+id/item_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
+        android:background="@color/transparent"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -13,6 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:visibility="gone"
+            android:background="@color/transparent"
             android:src="@mipmap/camera_2"/>
 
         <EditText
@@ -21,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="left"
+            android:background="@color/transparent"
             android:singleLine="true"
             android:textSize="20dp" />
 
