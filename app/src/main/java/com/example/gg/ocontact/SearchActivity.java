@@ -109,7 +109,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 for(ContactDatabase one: result_list) {
                     Person person= new Person(one.getId(), one.getName(),
-                            R.drawable.apple_pic, one.getPhoneNumber());
+                            one.getPhotoPath(), one.getPhoneNumber());
                     personList.add(person);
                 }
                 adapter = new PersonAdapter(personList, 2);

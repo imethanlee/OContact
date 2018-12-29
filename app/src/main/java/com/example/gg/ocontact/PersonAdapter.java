@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +16,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Handler;
+
+import static android.view.View.INVISIBLE;
 
 public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder> {
     private List<Person>mPersonList;
     private boolean visibleBoard[];
     private int mode;
     private int previousPosition;
-    private View previousV;
+    private View view0;
 
     //boolean visible=false;
     void switchvisible(View v,int pos){
@@ -101,6 +108,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         }//判断是否是开头或者结尾
 
         View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.person_item,parent,false);
+        view0=view;
         //获取person_item的布局
         final ViewHolder holder=new ViewHolder(view);
 
@@ -288,7 +296,12 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         if(getItemViewType(position) == TYPE_NORMAL){
             //这里加载数据的时候要注意，是从position-1开始，因为position==0已经被header占用了
             Person person=mPersonList.get(position-1);
-            holder.personImage.setImageResource(person.getImageId());
+            if(!TextUtils.isEmpty(person.getImagePath())) {
+                Glide.with(view0.getContext()).load(person.getImagePath()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(holder.personImage); //头像载入工具
+            }
+            else {
+                holder.personImage.setImageResource(R.mipmap.account);
+            }
             //holder.personName.setText("123");
             holder.personName.setText(person.getName());
 
