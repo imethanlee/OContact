@@ -70,6 +70,7 @@ public class ContactActivity extends AppCompatActivity {
         setHeaderView(recyclerView);
         setFooterView(recyclerView);
 
+
         /*/ 删除更新广播
         receiver = new DeletionReceiver();
         IntentFilter filter = new IntentFilter();
