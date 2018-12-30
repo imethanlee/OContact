@@ -38,7 +38,7 @@
                 <TextView
                     android:id="@+id/person_name"
                     android:layout_width="254dp"
-                    android:layout_height="35dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:textSize="20sp" />
