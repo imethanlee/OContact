@@ -80,7 +80,7 @@ public class ContactActivity extends AppCompatActivity {
         // ToolBar 中的 Menu
         Toolbar toolbar = findViewById(R.id.contact_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         //toolbar.inflateMenu(R.menu.contact_menu);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -103,7 +103,6 @@ public class ContactActivity extends AppCompatActivity {
                 return false;
             }
         });
-        toolbar.setTitle("Contact");
 
 
         // 联系人添加 FAB -- !!! 跳转 EditActivity !!!

@@ -39,8 +39,8 @@ public class DetailActivity extends SwipeBackActivity {
     String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         MyThemeUtils.initTheme(DetailActivity.this);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
         // 可以调用该方法，设置是否允许滑动退出

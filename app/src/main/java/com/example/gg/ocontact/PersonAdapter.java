@@ -168,8 +168,10 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                         holder.lowerLayout.setVisibility(View.GONE);
                 }
                 */
+                    HiddenAnimUtils.newInstance(v.getContext(),holder.lowerLayout,holder.linearLayout,45).toggle();
+                    /*if (visibleBoard[position] == false) {
 
-                    if (visibleBoard[position] == false) {
+
                         holder.lowerLayout.setVisibility(View.VISIBLE);
                         switchvisible(v_anim,position_anim);
 
@@ -182,7 +184,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                         holder.lowerLayout.startAnimation(mShowAction);
                     }
                     else {
-                        /*
+
                         TranslateAnimation mShowAction;
                         final TranslateAnimation mHiddenAction;
                         mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
@@ -191,11 +193,11 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
                         mHiddenAction.setDuration(500);
                         holder.lowerLayout.startAnimation(mHiddenAction);
                         */
-
+/*
                         holder.lowerLayout.setVisibility(View.GONE);
                         switchvisible(v_anim,position_anim);
 
-                    }
+                    }*/
 
                     previousPosition = position;
                 }

@@ -17,8 +17,8 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:fitsSystemWindows="true"
         android:minHeight="?actionBarSize"
-        app:title="Contact"
-        app:titleMargins="@dimen/cardview_default_radius"
+        app:title="O Contact"
+        app:titleMargins="@dimen/cardview_default_elevation"
         >
 
     </android.support.v7.widget.Toolbar>

@@ -24,6 +24,7 @@ import java.util.List;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
+
 public class SearchActivity extends SwipeBackActivity {
     private SwipeBackLayout mSwipeBackLayout;
 
@@ -42,8 +43,8 @@ public class SearchActivity extends SwipeBackActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         MyThemeUtils.initTheme(SearchActivity.this);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
         // 可以调用该方法，设置是否允许滑动退出

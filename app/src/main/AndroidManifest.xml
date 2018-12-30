@@ -24,7 +24,7 @@
         </activity>
         <activity
             android:name=".DetailActivity"
-            android:label=" " />
+            android:launchMode="singleTask" />
         <activity
             android:name=".EditActivity"
             android:launchMode="singleTask" />
